@@ -2,8 +2,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./page/Home";
 import Videos from "./page/Video/Videos";
-import Whatch from "./page/Video/Whatch";
 import Root from "./Root";
+import SearchResult from "./page/Video/SearchResult";
+import VideoDetail from "./page/Video/VideoDetail";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
         path: "/videos",
         element: <Videos />,
       },
-      { path: "/videos/:videoId", element: <Whatch /> },
+      { path: "/videos/:videoId", element: <SearchResult /> },
+      { path: "/videos/videoDetail/:videoId", element: <VideoDetail /> },
     ],
   },
 ]);

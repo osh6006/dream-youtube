@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SearchBar = () => {
+  const navigate = useNavigate();
+  const [value, setValue] = useState("");
+  const handleChange = e => {
+    setValue(e.target.value);
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (value.length > 0 && value !== "") {
+      setValue("");
+      navigate(`/videos/${value}`);
+    }
+  };
+  console.log(value);
   return (
     <>
       <div className="flex p-5 gap-10 items-center sm:gap-20 md:gap-32 lg:gap-40 xl:gap-52">
@@ -11,12 +25,17 @@ export const SearchBar = () => {
             alt="logo"
           />
         </div>
-        <div className="flex w-full flex-1 max-w-5xl items-center outline-none">
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-1 max-w-5xl items-center outline-none"
+        >
           <input
             className="text-2xl p-1 w-full outline-none"
             type="text"
             name="search"
             id="search"
+            value={value}
+            onChange={handleChange}
             placeholder="Search..."
           />
           <button className="bg-slate-500 p-2 text-white">
@@ -35,7 +54,7 @@ export const SearchBar = () => {
               />
             </svg>
           </button>
-        </div>
+        </form>
         <div className=""></div>
       </div>
       <hr className="h-[2px] bg-gray-600 border-0 dark:bg-gray-700" />
