@@ -19,7 +19,7 @@ export const SearchBar = () => {
             id="search"
             placeholder="Search..."
           />
-          <button className="bg-slate-500 p-2">
+          <button className="bg-slate-500 p-2 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
