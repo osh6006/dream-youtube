@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const SearchBar = () => {
   const navigate = useNavigate();
@@ -14,23 +14,25 @@ export const SearchBar = () => {
       navigate(`/videos/${value}`);
     }
   };
-  console.log(value);
+
   return (
     <>
       <div className="flex p-5 gap-10 items-center sm:gap-20 md:gap-32 lg:gap-40 xl:gap-52">
         <div className="w-32">
-          <img
-            className="w-32 aspect-auto"
-            src="/assets/YouTube_Logo_2017.svg"
-            alt="logo"
-          />
+          <Link to="/">
+            <img
+              className="w-32 aspect-auto"
+              src="/assets/YouTube_Logo_2017.svg"
+              alt="logo"
+            />
+          </Link>
         </div>
         <form
           onSubmit={handleSubmit}
           className="flex w-full flex-1 max-w-5xl items-center outline-none"
         >
           <input
-            className="text-2xl p-1 w-full outline-none"
+            className="text-2xl p-2 w-full outline-none bg-black "
             type="text"
             name="search"
             id="search"
