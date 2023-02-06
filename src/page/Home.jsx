@@ -8,7 +8,11 @@ export default function Home() {
     error,
     data: videos,
   } = useQuery(["mostPopular"], async () => {
-    return fetch(`data/mostPopular.json`).then(res => res.json());
+    // `${process.env.REACT_APP_API_ADRESS}videos?part=snippet&chart=mostPopular&maxResults=25&key=${process.env.REACT_APP_API_KEY}`;
+    // data/mostPopular.json
+    return fetch(
+      `${process.env.REACT_APP_API_ADRESS}videos?part=snippet&chart=mostPopular&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
+    ).then(res => res.json());
   });
 
   return (

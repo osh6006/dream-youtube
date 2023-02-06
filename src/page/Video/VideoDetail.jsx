@@ -12,22 +12,30 @@ export default function VideoDetail() {
     data: video,
   } = useQuery(["videoDetail"], async () => {
     // `${process.env.REACT_APP_API_ADRESS}videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_API_KEY}`;
-    return fetch(`/data/Video.json`).then(res => res.json());
+    // /data/Video.json
+    return fetch(
+      `${process.env.REACT_APP_API_ADRESS}videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_API_KEY}`
+    ).then(res => res.json());
   });
 
   const channel = useQuery(
     ["channel"],
     async () => {
-      //`${process.env.REACT_APP_API_ADRESS}channels?part=snippet%2CcontentDetails%2Cstatistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=${process.env.REACT_APP_API_KEY}`
-      return fetch(`/data/channel.json`).then(res => res.json());
+      //`${process.env.REACT_APP_API_ADRESS}channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video?.items[0].snippet.channelId}&key=${process.env.REACT_APP_API_KEY}`
+      //   /data/channel.json
+      return fetch(
+        `${process.env.REACT_APP_API_ADRESS}channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video?.items[0].snippet.channelId}&key=${process.env.REACT_APP_API_KEY}`
+      ).then(res => res.json());
     },
     { enabled: !!video }
   );
 
   const relatedVideos = useQuery(["relatedVideo"], async () => {
-    //`${process.env.REACT_APP_API_ADRESS}search?part=snippet&maxResults=25&relatedToVideoId=Ks-_Mh1QhMc&type=video&key=key=${process.env.REACT_APP_API_KEY}`
-
-    return fetch(`/data/relatedVideo.json`).then(res => res.json());
+    //`${process.env.REACT_APP_API_ADRESS}search?part=snippet&maxResults=15&relatedToVideoId=${videoId}&type=video&key=key=${process.env.REACT_APP_API_KEY}`
+    // /data/relatedVideo.json
+    return fetch(
+      `${process.env.REACT_APP_API_ADRESS}search?part=snippet&maxResults=15&relatedToVideoId=${videoId}&type=video&key=${process.env.REACT_APP_API_KEY}`
+    ).then(res => res.json());
   });
 
   const videoItem = video?.items[0].snippet;
@@ -36,7 +44,7 @@ export default function VideoDetail() {
   console.log(video);
 
   return (
-    <section className="flex w-full my-4 text-white gap-2">
+    <section className="flex flex-col lg:flex-row w-full my-4 text-white gap-2">
       <div className="flex-1 space-y-5">
         <div className=" aspect-video">
           <iframe
@@ -58,7 +66,7 @@ export default function VideoDetail() {
         </div>
         <p className="">{videoItem?.description}</p>
       </div>
-      <div className="flex-initial w-96 space-y-1">
+      <div className="w-[75%] lg:flex-initial lg:w-96 space-y-1">
         {relatedVideos?.data?.items?.map(el => (
           <RelatedVideoCard key={el.id.videoId} video={el} />
         ))}
